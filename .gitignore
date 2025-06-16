@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CustomerAPI
+/CustomerAPI/bin/Debug/net9.0
+/CustomerAPI/obj
+/CustomerAPI.Domain/bin/Debug/net9.0
+/CustomerAPI.Domain/obj/Debug/net9.0
+/CustomerAPI.Domain/obj
+/CustomerApi.Tests/bin/Debug/net9.0
+/CustomerApi.Tests/obj/Debug/net9.0
+/CustomerApi.Tests/obj

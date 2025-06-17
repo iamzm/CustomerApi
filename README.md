@@ -1,8 +1,7 @@
-# CustomerAPI (.NET 8 Minimal API)
+# CustomerAPI (.NET 9 Minimal API)
 
-A lightweight .NET 8 RESTful API for managing customers, built with **Minimal APIs**, **CQRS**, and **MediatR**, complete with containerization, Kubernetes deployment, and a client CLI integration.
+A lightweight .NET 9 RESTful API for managing customers, built with **Minimal APIs**, **CQRS**, and **MediatR**, complete with containerization, Kubernetes deployment, and a client CLI integration.
 
-> ⏱️ Timeboxed to 2 hours as per assignment constraints.
 
 ---
 
@@ -134,7 +133,7 @@ Uses `System.Net.Http.Json` and `System.Text.Json`.
 
 ## 🔧 Tech Stack
 
-- .NET 8
+- .NET 9
 - ASP.NET Core Minimal APIs
 - Entity Framework Core + SQLite
 - MediatR (CQRS)
@@ -145,14 +144,3 @@ Uses `System.Net.Http.Json` and `System.Text.Json`.
 
 ---
 
-## ✅ How to Extend
-
-- Add FluentValidation for command validation
-- Add Swagger/OpenAPI with `AddEndpointsApiExplorer`
-- Add authentication (e.g., JWT) via middleware
-
----
-
-## 📄 License
-
-MIT (or add your own)

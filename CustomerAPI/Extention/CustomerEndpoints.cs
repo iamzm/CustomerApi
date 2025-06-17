@@ -1,4 +1,7 @@
-﻿using CustomerAPI.Domain;
+﻿using CustomerAPI.Application.Commands;
+using CustomerAPI.Application.Queries;
+using CustomerAPI.Domain;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerAPI.Extention
@@ -7,51 +10,54 @@ namespace CustomerAPI.Extention
     {
         public static void MapCustomerEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/", () => "Customer API is running");
-
-            app.MapGet("/api/customers", async (CustomerContext db) =>
-                await db.Customers.ToListAsync());
-
-            app.MapGet("/api/customers/{id}", async (Guid id, CustomerContext db) =>
-                await db.Customers.FindAsync(id) is Customer customer
-                    ? Results.Ok(customer)
-                    : Results.NotFound());
-
-            app.MapPost("/api/customers", async (Customer customer, CustomerContext db) =>
+            app.MapGet("/api/customers", async (IMediator mediator) =>
             {
-                if (await db.Customers.AnyAsync(c => c.Email == customer.Email))
-                    return Results.BadRequest("Email already exists.");
-
-                db.Customers.Add(customer);
-                await db.SaveChangesAsync();
-                return Results.Created($"/api/customers/{customer.Id}", customer);
+                var result = await mediator.Send(new GetAllCustomersQuery());
+                return Results.Ok(result);
             });
 
-            app.MapPut("/api/customers/{id}", async (Guid id, Customer input, CustomerContext db) =>
+            // GET customer by ID
+            app.MapGet("/api/customers/{id}", async (Guid id, IMediator mediator) =>
             {
-                var customer = await db.Customers.FindAsync(id);
-                if (customer is null)
-                    return Results.NotFound();
-
-                customer.FirstName = input.FirstName;
-                customer.MiddleName = input.MiddleName;
-                customer.LastName = input.LastName;
-                customer.Email = input.Email;
-                customer.PhoneNumber = input.PhoneNumber;
-
-                await db.SaveChangesAsync();
-                return Results.NoContent();
+                var result = await mediator.Send(new GetCustomerByIdQuery(id));
+                return result is not null ? Results.Ok(result) : Results.NotFound();
             });
 
-            app.MapDelete("/api/customers/{id}", async (Guid id, CustomerContext db) =>
+            // POST create customer
+            app.MapPost("/api/customers", async (Customer customer, IMediator mediator) =>
             {
-                var customer = await db.Customers.FindAsync(id);
-                if (customer is null)
-                    return Results.NotFound();
+                try
+                {
+                    customer.Id = Guid.NewGuid();
+                    var result = await mediator.Send(new CreateCustomerCommand(customer));
+                    return Results.Created($"/api/customers/{result.Id}", result);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+            });
 
-                db.Customers.Remove(customer);
-                await db.SaveChangesAsync();
-                return Results.NoContent();
+            // PUT update customer
+            app.MapPut("/api/customers/{id}", async (Guid id, Customer updatedCustomer, IMediator mediator) =>
+            {
+                try
+                {
+                    updatedCustomer.Id = id;
+                    var result = await mediator.Send(new UpdateCustomerCommand(updatedCustomer));
+                    return result ? Results.NoContent() : Results.NotFound();
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+            });
+
+            // DELETE customer
+            app.MapDelete("/api/customers/{id}", async (Guid id, IMediator mediator) =>
+            {
+                var result = await mediator.Send(new DeleteCustomerCommand(id));
+                return result ? Results.NoContent() : Results.NotFound();
             });
         }
     }

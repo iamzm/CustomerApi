@@ -1,6 +1,11 @@
 using CustomerAPI.Domain;
 using CustomerAPI.Extention;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using System.Reflection;
+using CustomerAPI.Application.Handlers;
+using CustomerAPI.Application.Queries;
+using CustomerAPI.Application.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CustomerContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<GetCustomerByIdQuery>();
+    cfg.RegisterServicesFromAssemblyContaining<CreateCustomerCommand>();
+
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();

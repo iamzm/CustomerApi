@@ -1,4 +1,5 @@
 using CustomerAPI.Domain;
+using CustomerAPI.Extention;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,13 @@ builder.Services.AddDbContext<CustomerContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -22,6 +27,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+
+app.MapCustomerEndpoints();
 
 app.Run();

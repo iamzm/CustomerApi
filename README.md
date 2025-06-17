@@ -26,7 +26,7 @@ CustomerAPI.Domain/      # Domain layer (DbContext, models)
 CustomerApi.Tests/       # xUnit integration test project
 CustomerApiClient/       # Console app (CLI consumer)
 .github/workflows/       # CI pipeline
-k8s/                     # Kubernetes YAML files
+                         # Kubernetes YAML files
 ```
 
 ---
@@ -61,7 +61,6 @@ Tests include full CRUD with real in-memory SQLite and a custom `WebApplicationF
 
 - Health check: `GET /health` (if enabled)
 - Logging: Built-in `ILogger<T>` support
-- Optionally integrate OpenTelemetry/Prometheus exporters
 
 ---
 
@@ -79,8 +78,8 @@ docker run -p 5000:80 customerapi
 ### 5️⃣ Kubernetes Deployment
 
 **YAML files:**
-- `k8s/deployment.yaml`
-- `k8s/service.yaml`
+- `deployment.yaml`
+- `service.yaml`
 
 Apply:
 

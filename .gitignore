@@ -15,3 +15,4 @@
 /CustomerApi.Tests/bin/Release/net9.0
 /CustomerAPI.Application/obj
 /CustomerAPI.Application/bin/Debug/net9.0
+/CustomerApiClient/obj

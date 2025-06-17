@@ -24,7 +24,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 app.UseSwagger();
@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.MapHealthChecks("/health");
 
 app.UseHttpsRedirection();
 
@@ -43,3 +44,5 @@ app.UseAuthorization();
 app.MapCustomerEndpoints();
 
 app.Run();
+
+public partial class Program { }

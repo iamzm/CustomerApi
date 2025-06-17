@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["CustomerAPI/CustomerAPI.csproj", "CustomerAPI/"]
+COPY ["CustomerAPI.Application/CustomerAPI.Application.csproj", "CustomerAPI.Application/"]
+COPY ["CustomerAPI.Domain/CustomerAPI.Domain.csproj", "CustomerAPI.Domain/"]
 RUN dotnet restore "./CustomerAPI/CustomerAPI.csproj"
 COPY . .
 WORKDIR "/src/CustomerAPI"

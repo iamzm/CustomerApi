@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customerapi-deployment
+  labels:
+    app: customerapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customerapi
+  template:
+    metadata:
+      labels:
+        app: customerapi
+    spec:
+      containers:
+        - name: customerapi
+          image: customerapi:latest # Replace with your registry/tag if needed
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"

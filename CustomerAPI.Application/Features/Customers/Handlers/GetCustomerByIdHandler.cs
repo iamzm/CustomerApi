@@ -1,4 +1,4 @@
-﻿using CustomerAPI.Application.Queries;
+﻿using CustomerAPI.Application.Features.Customers.Queries;
 using CustomerAPI.Domain;
 using MediatR;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerAPI.Application.Handlers
+namespace CustomerAPI.Application.Features.Customers.Handlers
 {
     public class GetCustomerByIdHandler : IRequestHandler<GetCustomerByIdQuery, Customer?>
     {

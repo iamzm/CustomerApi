@@ -3,9 +3,8 @@ using CustomerAPI.Extention;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using System.Reflection;
-using CustomerAPI.Application.Handlers;
-using CustomerAPI.Application.Queries;
-using CustomerAPI.Application.Commands;
+using CustomerAPI.Application.Features.Customers.Queries;
+using CustomerAPI.Application.Features.Customers.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +15,6 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblyContaining<GetCustomerByIdQuery>();
-    cfg.RegisterServicesFromAssemblyContaining<CreateCustomerCommand>();
-
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -28,7 +25,7 @@ builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", " CustomerAPI v1"));
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

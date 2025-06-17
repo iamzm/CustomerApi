@@ -1,14 +1,9 @@
-﻿using CustomerAPI.Application.Commands;
+﻿using CustomerAPI.Application.Features.Customers.Commands;
 using CustomerAPI.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CustomerAPI.Application.Handlers
+namespace CustomerAPI.Application.Features.Customers.Handlers
 {
     public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, bool>
     {

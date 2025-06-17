@@ -1,5 +1,5 @@
-﻿using CustomerAPI.Application.Commands;
-using CustomerAPI.Application.Queries;
+﻿using CustomerAPI.Application.Features.Customers.Commands;
+using CustomerAPI.Application.Features.Customers.Queries;
 using CustomerAPI.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

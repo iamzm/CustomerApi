@@ -1,8 +1,8 @@
-﻿using CustomerAPI.Application.Queries;
+﻿using CustomerAPI.Application.Features.Customers.Queries;
 using CustomerAPI.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-namespace CustomerAPI.Application.Handlers
+namespace CustomerAPI.Application.Features.Customers.Handlers
 {
     public class GetAllCustomersHandler : IRequestHandler<GetAllCustomersQuery, IEnumerable<Customer>>
     {

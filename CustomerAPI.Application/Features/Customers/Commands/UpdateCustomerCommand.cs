@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerAPI.Application.Queries
+namespace CustomerAPI.Application.Features.Customers.Commands
 {
-    public record GetCustomerByIdQuery(Guid Id) : IRequest<Customer?>;
+    public record UpdateCustomerCommand(Customer Customer) : IRequest<bool>;
 }
